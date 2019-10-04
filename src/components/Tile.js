@@ -7,7 +7,8 @@ const Tile = (props) => (
     max='9'
     onChange={(e) => (props.handleChange(e))}
     value={props.tileValue}
+    disabled={props.disabled}
   />
-)
+);
 
 export default Tile;
