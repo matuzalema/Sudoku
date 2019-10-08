@@ -1,0 +1,76 @@
+*{
+  box-sizing: border-box;
+}
+.App {
+  width: 100%;
+}
+h1 {
+  text-align: center;
+}
+.sudoku-container {
+  width: 100%;
+}
+.sudoku-board {
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 290px;
+  border: 1px solid black;
+}
+.sudoku-tile {
+  display: inline-block;
+  border: 1px solid black;
+}
+/* .sudoku-tile:nth-child(3n+0) {
+  border: 1px solid red;
+}
+.sudoku-tile:nth-child(9n+9) {
+  border: 1px solid yellow;
+}
+.sudoku-tile:nth-child(9n+8) {
+  border: 1px solid green;
+}
+
+.sudoku-tile:nth-child(9n+8):hover  {
+border: 1px solid yellow;
+}
+
+.sudoku-tile:nth-child(9n+7) {
+  border: 1px solid blue;
+}
+.sudoku-tile:nth-child(9n+6) {
+  border: 1px solid pink;
+} */
+.sudoku-input {
+  border: none;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+.sudoku-input:disabled {
+  background-color: #d9d9d9;
+}
+.sudoku-display {
+  height: 18px;
+  margin: 5px 0;
+}
+.sudoku-display p {
+  text-align: center;
+}
+.sudoku-buttons-container {
+  width: 100%;
+}
+.sudoku-buttons {
+  margin: 0 auto;
+  width: 290px;
+}
+.sudoku-button {
+  width: 25%;
+  font-size: 11px;
+}
+.selected-row {
+  border: 1px solid red;
+}
+.selected-column {
+  border: 1px solid blue;
+}

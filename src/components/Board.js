@@ -16,6 +16,7 @@ class Board extends Component {
 
     this.getNumbers = this.getNumbers.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +47,8 @@ class Board extends Component {
     this.setState({
       initialBoard: newGame,
       board: newGame,
-      initialNumbers: initialNumbers
+      initialNumbers: initialNumbers,
+      display: ''
     });
   }
 
@@ -61,7 +63,10 @@ class Board extends Component {
   }
 
   restartGame() {
-    this.setState({board: this.state.initialBoard})
+    this.setState({
+      board: this.state.initialBoard,
+      display: ''
+    })
   }
 
   getNumbers() {
@@ -96,22 +101,116 @@ class Board extends Component {
     return initialNumbersIndex;
   }
 
+  // disabled(number, index) {
+  //   return (
+  //     <Tile handleChange={this.handleChange.bind(null, index)} tileValue={number} disabled/>
+  //   );
+  // }
+  //
+  // ordinary(number, index) {
+  //   return (
+  //     <Tile handleChange={this.handleChange.bind(null, index)} tileValue={number}/>
+  //   );
+  // }
+
+  // const listItems = numbers.map((number, index) => (
+  //     <li className='sudoku-tile' key={index}>
+  //       { initialNumbers[index]
+  //         ? <Tile handleChange={this.handleChange.bind(null, index)} tileValue={number} disabled/>
+  //         : <Tile handleChange={this.handleChange.bind(null, index)} tileValue={number}/>
+  //       }
+  //     </li>
+  // ));
+
+  //==========
+  // <li className={'sudoku-tile tile' + index} key={index}>
+  //   { initialNumbers[index]
+  //     ? <Tile handleChange={this.handleChange.bind(null, index)} tileValue={number} disabled/>
+  //     : <Tile handleChange={this.handleChange.bind(null, index)} tileValue={number}/>
+  //   }
+  // </li>
+  //=========
+  handleMouseOver(index, e) {
+    const arrayXY = [];
+    const boardArray = [...this.state.board];
+
+    for (let i=0; i<9; i++){
+      arrayXY[i] = [];
+    }
+    
+    let j = 0;
+
+    for (let x=0; x<9; x++){
+      for (let y=0; y<9; y++){
+        arrayXY[x][y] = boardArray[j++];
+      }
+    }
+    
+
+    // function getFirstElementInARow(index) {
+    //   const firstRowElement = index - index%9;
+    //   const columnNumber = index - firstRowElement;
+
+    //   for(let i = 0; i < 9; i++) {
+    //     items[firstRowElement+i].classList.add('selected-row');
+    //   }
+
+    //   let currentColumnElement = columnNumber;
+
+    //   for(let i = 0; i < 9; i++) {
+    //     items[currentColumnElement].classList.add('selected-column');
+    //     currentColumnElement += 9;
+    //   }
+
+     
+
+
+
+    //   const value = index;
+
+      
+    //   console.log(index);
+
+    // }
+    // getFirstElementInARow(index);
+  }
+
+  handleMouseLeave(index, e) {
+    const element = e.target;
+    const parent = element.parentElement.parentElement;
+    const items = Array.from(parent.children);
+    items.forEach(function(item) {
+      item.classList.remove('selected-row', 'selected-column');
+    });
+  }
+
   render() {
     const initialNumbers = this.state.initialNumbers;
     const numbers = this.getNumbers();
 
     const listItems = numbers.map((number, index) => (
-        <li key={index}>
-          { initialNumbers[index]
-            ? <Tile handleChange={this.handleChange.bind(null, index)} tileValue={number} disabled/>
-            : <Tile handleChange={this.handleChange.bind(null, index)} tileValue={number}/>
-          }
-        </li>
+      <li className='sudoku-tile' key={index}>
+        { initialNumbers[index]
+          ? <Tile
+              handleMouseOver={this.handleMouseOver.bind(null, index)}
+              handleMouseLeave={this.handleMouseLeave.bind(null, index)}
+              handleChange={this.handleChange.bind(null, index)}
+              tileValue={number}
+              disabled
+            />
+          : <Tile
+              handleMouseOver={this.handleMouseOver.bind(null, index)}
+              handleMouseLeave={this.handleMouseLeave.bind(null, index)}
+              handleChange={this.handleChange.bind(null, index)}
+              tileValue={number}
+            />
+        }
+      </li>
     ));
 
     return (
-      <div>
-        <ul>
+      <div className='sudoku-container'>
+        <ul className='sudoku-board'>
           {listItems}
         </ul>
         <Display>
