@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Buttons = (props) => (
+const GameButtons = (props) => (
   <div className='sudoku-buttons-container'>
     <div className='sudoku-buttons'>
       <button className='sudoku-button' onClick={props.check}>Check</button>
@@ -11,4 +11,4 @@ const Buttons = (props) => (
   </div>
 );
 
-export default Buttons;
+export default GameButtons;

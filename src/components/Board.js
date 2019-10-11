@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Tile from './Tile';
 import sudoku from 'sudoku-umd';
 import Display from './Display';
-import Buttons from './Buttons';
+import GameButtons from './GameButtons';
+import DifficultyButtons from './DifficultyButtons';
 
 class Board extends Component {
   constructor(props) {
@@ -11,12 +12,15 @@ class Board extends Component {
       initialBoard: '52...6.........7.13...........4..8..6......5...........418.........3..2...87.....',
       board: '',
       initialNumbers: [],
-      display: ''
+      display: '',
+      newGame: false
     }
 
     this.getNumbers = this.getNumbers.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.setDifficulty = this.setDifficulty.bind(this);
+    this.changeButtonsView = this.changeButtonsView.bind(this);
   }
 
   componentDidMount() {
@@ -40,16 +44,50 @@ class Board extends Component {
     : this.setState({display: 'gdzies spopelniles blad'});
   }
 
-  startNewGame() {
-    const newGame = sudoku.generate();
-    const initialNumbers = this.markBoardNumbers(newGame);
+  startNewGame(difficulty) {
+    if(difficulty !== undefined) {
+      const newGame = sudoku.generate(difficulty);
+      const initialNumbers = this.markBoardNumbers(newGame);
 
-    this.setState({
-      initialBoard: newGame,
-      board: newGame,
-      initialNumbers: initialNumbers,
-      display: ''
-    });
+      this.setState({
+        initialBoard: newGame,
+        board: newGame,
+        initialNumbers: initialNumbers,
+        display: '',
+        newGame: true
+      });
+
+    } else {
+      this.setState({
+        initialBoard: '',
+        board: '.................................................................................',
+        display: 'Wybierz poziom trudności',
+        newGame: true
+      });
+    }
+  }
+
+  setDifficulty(difficulty) {
+    const asd = (comment) => {
+      this.setState({
+        newGame: false,
+        display:comment
+      });
+    }
+
+    this.startNewGame(difficulty);
+
+    switch (difficulty) {
+      case 'easy':    asd('Chyba stać Cię wiecej?');
+        break;
+      case 'normal':  asd('Tyle to kazdy potrafi');
+        break;
+      case 'hard':    asd('Pokaz na co Cie stać');
+        break;
+      case 'insane':  asd('Level azjata, powodzenia :P');
+        break;
+      default: return
+    }
   }
 
   solvePuzzle() {
@@ -160,7 +198,7 @@ class Board extends Component {
       for(let i = 0; i < tiles.length; i++) {
         currentBlocksPattern.forEach(function(element) {
           if(element === parseInt([i])) {
-          tiles[i].classList.add('selected');
+            tiles[i].classList.add('selected');
           }
         });
       }
@@ -170,17 +208,45 @@ class Board extends Component {
   }
 
   handleMouseLeave(index, e) {
-    const element = e.target;
-    const parent = element.parentElement.parentElement;
-    const items = Array.from(parent.children);
-    items.forEach(function(item) {
-      item.classList.remove('selected');
+    const items = e.target.parentElement.parentElement.children;
+    const tiles = Array.from(items);
+
+    tiles.forEach(function(tile) {
+      tile.classList.remove('selected');
     });
+  }
+
+  changeButtonsView(state) {
+    let buttons = null;
+    if(!state) {
+      return (
+        buttons = <GameButtons
+          check={() => this.checkPuzzleCorrectness()}
+          newGame={() => this.startNewGame()}
+          solve={() => this.solvePuzzle()}
+          restart={() => this.restartGame()}
+        />
+      );
+    this.setState({newGame: true});
+    } else {
+      return (
+        buttons =
+          <DifficultyButtons
+            easy={() => this.setDifficulty('easy')}
+            normal={() => this.setDifficulty('normal')}
+            hard={() => this.setDifficulty('hard')}
+            insane={() => this.setDifficulty('insane')}
+          />
+      );
+      this.setState({newGame: false});
+    }
+    return buttons;
   }
 
   render() {
     const initialNumbers = this.state.initialNumbers;
     const numbers = this.getNumbers();
+    const buttons = this.changeButtonsView(this.state.newGame);
 
     const listItems = numbers.map((number, index) => (
       <li className='sudoku-tile' key={index}>
@@ -210,12 +276,7 @@ class Board extends Component {
         <Display>
           {this.state.display}
         </Display>
-        <Buttons
-          check={() => this.checkPuzzleCorrectness()}
-          newGame={() => this.startNewGame()}
-          solve={() => this.solvePuzzle()}
-          restart={() => this.restartGame()}
-        />
+        {buttons}
       </div>
     );
   }
