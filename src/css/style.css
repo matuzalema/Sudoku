@@ -1,11 +1,21 @@
 *{
   box-sizing: border-box;
 }
+body {
+  background-color: #eeeeee;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152' height='152' viewBox='0 0 152 152'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='temple' fill='%23b4a9c5' fill-opacity='0.4'%3E%3Cpath d='M152 150v2H0v-2h28v-8H8v-20H0v-2h8V80h42v20h20v42H30v8h90v-8H80v-42h20V80h42v40h8V30h-8v40h-42V50H80V8h40V0h2v8h20v20h8V0h2v150zm-2 0v-28h-8v20h-20v8h28zM82 30v18h18V30H82zm20 18h20v20h18V30h-20V10H82v18h20v20zm0 2v18h18V50h-18zm20-22h18V10h-18v18zm-54 92v-18H50v18h18zm-20-18H28V82H10v38h20v20h38v-18H48v-20zm0-2V82H30v18h18zm-20 22H10v18h18v-18zm54 0v18h38v-20h20V82h-18v20h-20v20H82zm18-20H82v18h18v-18zm2-2h18V82h-18v18zm20 40v-18h18v18h-18zM30 0h-2v8H8v20H0v2h8v40h42V50h20V8H30V0zm20 48h18V30H50v18zm18-20H48v20H28v20H10V30h20V10h38v18zM30 50h18v18H30V50zm-2-40H10v18h18V10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 50px;
+}
 .App {
   width: 100%;
 }
 h1 {
   text-align: center;
+  color: #675B78;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 40px;
+  font-size: 42px;
 }
 .sudoku-container {
   width: 100%;
@@ -14,37 +24,18 @@ h1 {
   list-style-type: none;
   margin: 0 auto;
   padding: 0;
-  width: 290px;
-  border: 1px solid black;
+  border: 1px solid #40b386;
+  width:470px;
+  box-shadow:5px 5px 12px grey;
 }
 .sudoku-tile {
   display: inline-block;
-  border: 1px solid black;
+  border: 1px solid #675B78;
 }
-/* .sudoku-tile:nth-child(3n+0) {
-  border: 1px solid red;
-}
-.sudoku-tile:nth-child(9n+9) {
-  border: 1px solid yellow;
-}
-.sudoku-tile:nth-child(9n+8) {
-  border: 1px solid green;
-}
-
-.sudoku-tile:nth-child(9n+8):hover  {
-border: 1px solid yellow;
-}
-
-.sudoku-tile:nth-child(9n+7) {
-  border: 1px solid blue;
-}
-.sudoku-tile:nth-child(9n+6) {
-  border: 1px solid pink;
-} */
 .sudoku-input {
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   padding: 0;
 }
 .sudoku-input:disabled {
@@ -56,18 +47,53 @@ border: 1px solid yellow;
 }
 .sudoku-display p {
   text-align: center;
+  color: #675B78;
+  font-weight: bold;
+  margin: 30px;
 }
 .sudoku-buttons-container {
   width: 100%;
 }
 .sudoku-buttons {
-  margin: 0 auto;
-  width: 290px;
+  width: 60%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-around;
 }
 .sudoku-button {
-  width: 25%;
+  width: 23%;
   font-size: 11px;
+  background-color: #675B78;
+  border: none;
+  color: #fff;
+  padding: 15px 8px;
+  transition: 0.5s;
+  border-radius: 5px;
+  outline: none;
+}
+.sudoku-button:hover {
+  background-color: #675b78d9;
+  cursor: pointer;
+  outline: none;
 }
 .selected {
   border: 1px solid red;
+}
+
+@media(max-width: 420px) {
+  .sudoku-input {
+    width: 30px;
+    height: 30px;
+  }
+
+.sudoku-board {
+  width:290px;
+  }
+.sudoku-buttons {
+  width: 95%;
+  margin-top: 20px;
+  }
+h1 {
+  font-size: 32px;
+  }
 }

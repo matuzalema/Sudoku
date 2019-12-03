@@ -38,10 +38,10 @@ class Board extends Component {
     const board = this.state.board;
     const evaluatedBoard = sudoku.solve(board);
     (evaluatedBoard === board)
-    ? this.setState({display: 'sudoku rozwiązane poprawnie'})
+    ? this.setState({display: 'Brawo!!! Rozwiązane poprawnie!'})
     : evaluatedBoard
-    ? this.setState({display: 'jestes na dobrej drodze do rozwiazania sudoku'})
-    : this.setState({display: 'gdzies spopelniles blad'});
+    ? this.setState({display: 'Jesteś na dobrej drodze do rozwiazania sudoku'})
+    : this.setState({display: 'Gdzieś popełniłeś bład'});
   }
 
   startNewGame(difficulty) {
@@ -78,11 +78,11 @@ class Board extends Component {
     this.startNewGame(difficulty);
 
     switch (difficulty) {
-      case 'easy':    asd('Chyba stać Cię wiecej?');
+      case 'easy':    asd('Chyba stać Cię więcej;)');
         break;
-      case 'normal':  asd('Tyle to kazdy potrafi');
+      case 'normal':  asd('Tyle to każdy potrafi;)');
         break;
-      case 'hard':    asd('Pokaz na co Cie stać');
+      case 'hard':    asd('Pokaz na co Cię stać kozaku!');
         break;
       case 'insane':  asd('Level azjata, powodzenia :P');
         break;
@@ -96,7 +96,7 @@ class Board extends Component {
 
     evaluatedBoard
     ? this.setState({board: evaluatedBoard})
-    : this.setState({display: 'gdzies spopelniles blad'});
+    : this.setState({display: 'Gdzieś popelniles błąd'});
 
   }
 
