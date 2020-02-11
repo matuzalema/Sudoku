@@ -78,7 +78,7 @@ class Board extends Component {
     this.startNewGame(difficulty);
 
     switch (difficulty) {
-      case 'easy':    asd('Chyba stać Cię więcej;)');
+      case 'easy':    asd('Chyba stać Cię na więcej;)');
         break;
       case 'normal':  asd('Tyle to każdy potrafi;)');
         break;
